@@ -1,0 +1,40 @@
+ion-content {
+  --overflow: hidden !important;
+  --background: var(--theme-default-shade) !important;
+}
+
+
+.splash-container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 45%;
+  transform: translateY(-45%);
+
+  ion-img {
+    width: 230px;
+    margin: 16px auto;
+  }
+
+  ion-label {
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+ion-footer {
+  height: 60%;
+  background: #fadf14;
+  .splash-footer {
+    height: 100%;
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    background: white;
+
+    ion-img  {
+      object-fit: none;
+    }
+  }
+}
+

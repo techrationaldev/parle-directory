@@ -1,0 +1,32 @@
+<ion-header  *ngIf="globalVar.connection.value == true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Videos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="globalVar.connection.value == true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="caret-down" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
+
+
+  <div class="video-container" *ngFor="let video of videosList; let i=index;">
+    <ion-item>
+      <ion-label>
+        <p class="title">{{video?.video_title}}</p>
+      </ion-label>
+    </ion-item>
+
+    <div>
+      <iframe width="100%" height="230px" [src]="video?.embededLink" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+</ion-content>
+
+<!-- ========================== Network connection lost ========================== -->
+<app-network-connection *ngIf="globalVar.connection.value == false" [title_text]="title"></app-network-connection>
+<!-- =========================================================================== -->

@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Notification</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let notification of notificationList; let i=index;">
+      <ion-card-header class="ion-no-padding" *ngIf="notification.notification_image">
+        <ion-img [src]="globalVar.notificationImgUrl + notification.notification_image"></ion-img>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-card-subtitle>{{notification?.notification_title}}</ion-card-subtitle>
+        <p class="ion-no-margin">{{notification?.notification_text}}</p>
+        <p class="notifi-date ion-no-margin">{{notification?.notification_date | date: 'dd MMM yyyy'}} <ion-text color="primary"> | </ion-text>
+          {{notification?.notification_date | date: 'hh:mm'}}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

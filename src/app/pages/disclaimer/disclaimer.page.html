@@ -1,0 +1,21 @@
+<ion-header *ngIf="globalVar.connection.value == true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Disclaimer</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="globalVar.connection.value == true">
+  <div class="ion-text-justify ion-padding">
+    <!-- <p>
+      {{disclaimer}}
+    </p> -->
+    <div [innerHTML]="disclaimer"></div>
+  </div>
+</ion-content>
+
+<!-- ========================== Network connection lost ========================== -->
+<app-network-connection *ngIf="globalVar.connection.value == false" [title_text]="title"></app-network-connection>
+<!-- =========================================================================== -->

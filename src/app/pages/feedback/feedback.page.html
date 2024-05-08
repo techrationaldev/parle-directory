@@ -1,0 +1,49 @@
+<ion-header *ngIf="globalVar.connection.value == true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Feedback</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="globalVar.connection.value == true">
+  <div>
+    <ion-card>
+      <ion-card-header>
+       <div class="subtitle">
+        <p class="subtitle-feedback">Share your feedback to help us improve the app</p> 
+       </div>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-label position="stacked" class="required">Name</ion-label>
+        <ion-item fill="outline" mode="md" lines="none" class="feedback-field">
+          <ion-input type="text" [(ngModel)]="name"></ion-input>
+        </ion-item>
+
+        <ion-label position="stacked" class="required">Phone number</ion-label>
+        <ion-item fill="outline" mode="md" lines="none" class="feedback-field">
+          <ion-input type="tel" [(ngModel)]="phone" maxlength="10"></ion-input>
+        </ion-item>
+
+        <ion-label position="stacked">Email address</ion-label>
+        <ion-item fill="outline" mode="md" lines="none" class="feedback-field">
+          <ion-input type="text" [(ngModel)]="email"></ion-input>
+        </ion-item>
+
+        <ion-label position="stacked" class="required">Feedback</ion-label>
+        <ion-item fill="outline" mode="md" lines="none" class="feedback-field">
+          <ion-textarea  [(ngModel)]="feedback"></ion-textarea>
+        </ion-item>
+
+        <div class="footer-submit">
+          <ion-button expand="block" (click)="fnSendFeedack()" [disabled]="!name || !phone || !feedback">Submit</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+
+<!-- ========================== Network connection lost ========================== -->
+<app-network-connection *ngIf="globalVar.connection.value == false" [title_text]="title"></app-network-connection>
+<!-- =========================================================================== -->

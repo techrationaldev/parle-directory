@@ -1,0 +1,7 @@
+{
+  "name": "parleDirectory",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

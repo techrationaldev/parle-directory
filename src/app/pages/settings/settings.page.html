@@ -1,0 +1,77 @@
+<ion-header *ngIf="globalVar.connection.value == true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="close-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="globalVar.connection.value == true">
+  <div class="ion-padding setting-container">
+
+  <div class="">
+    <ion-item detail="true" class="setting-header" (click)="fnAboutUs()">
+      <p class="inactive-header">About us</p>
+    </ion-item>
+    <ion-item detail="true" class="setting-header" (click)="fnOurTeam()">
+      <p class="inactive-header">Founders</p>
+    </ion-item>
+    <ion-item detail="true" class="setting-header" (click)="fnNavigateVideo()">
+      <p class="inactive-header">Videos</p>
+    </ion-item>
+    <ion-item detail="true" class="setting-header" (click)="fnFeedback()">
+      <p class="inactive-header">Feedback</p>
+    </ion-item>
+    <ion-item detail="true" class="setting-header" (click)="fnPrivacyPolicy()">
+      <p class="inactive-header">Privacy Policy</p>
+    </ion-item>
+    <!-- <ion-item detail="true" class="setting-header" (click)="fnDisclaimer()">
+      <p class="inactive-header">Disclaimer</p>
+    </ion-item> -->
+    <ion-item detail="true" lines="none" class="setting-header last-setting" (click)="fnSupport()">
+      <p class="inactive-header">Support</p>
+    </ion-item>
+  </div>
+
+  </div>
+</ion-content>
+
+
+<ion-footer *ngIf="globalVar.connection.value == true">
+  <div class="setting-footer">
+    <div class="ion-margin-bottom ion-text-center">
+      <ion-note class="footer-subtxt">POWERED BY</ion-note>
+    </div>
+  
+    <ion-row>
+      <ion-col>
+        <div class="website-link" (click)="fnRedirectWebsite('parlebazar')">
+          <ion-img src="assets/images/splash-footer/logo-new.png"></ion-img>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="website-link" (click)="fnRedirectWebsite('parlekar')">
+          <ion-img src="assets/images/splash-footer/Parlekar-logo-2.png"></ion-img>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="website-link" (click)="fnRedirectWebsite('townparle')">
+          <ion-img src="assets/images/splash-footer/townparle.png"></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+
+
+    <div class="ion-text-center ion-margin-vertical" *ngIf="globalVar.appVersion">
+      <ion-label color="medium">Version {{globalVar.appVersion}}</ion-label>
+    </div>
+  </div>
+  <div>
+    
+  </div>
+</ion-footer>
+
+<!-- ========================== Network connection lost ========================== -->
+<app-network-connection *ngIf="globalVar.connection.value == false" [title_text]="title"></app-network-connection>
+<!-- =========================================================================== -->

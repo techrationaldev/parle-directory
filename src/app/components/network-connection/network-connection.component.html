@@ -1,0 +1,12 @@
+<ion-header class="ion-no-margin" *ngIf="title_text != ''">
+  <ion-toolbar color="white">
+    <ion-title>{{title_text}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center ion-padding" style="height: 100vh;">
+  <div class="connection-lost">
+    <ion-img src="assets/images/connection_lost.svg"></ion-img><br/>
+    <ion-button size="small" (click)="fnTryAgain()">Try again</ion-button>
+  </div>
+</ion-content>

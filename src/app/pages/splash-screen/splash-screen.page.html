@@ -1,0 +1,12 @@
+<ion-content>
+  <div class="splash-container">
+    <ion-img src="assets/images/splash-logo.svg"></ion-img>
+    <ion-label>Everything about Vile Parle &#64; click</ion-label>
+  </div>
+</ion-content>
+
+<ion-footer>
+ <div class="splash-footer" *ngIf="globalVar?.splashImg">
+  <ion-img [src]="globalVar?.splashImg"></ion-img>
+ </div>
+</ion-footer>
