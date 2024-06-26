@@ -18,6 +18,7 @@ export class AppointmentComponent  implements OnInit {
   public user_email: any = '';
   public user_mobile: any = '';
   public currentDate = new Date().toISOString();
+  public currentTime = new Date().toUTCString();
   public appointmentdate = new Date().toISOString();
   public appointmenttime = new Date().toUTCString();
 
@@ -42,7 +43,21 @@ export class AppointmentComponent  implements OnInit {
   }
 
   ngOnInit() {
-    this.fnGetSubscribeData();}
+    this.fnGetSubscribeData();
+    this.setCurrentTime();
+  }
+
+    setCurrentTime() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0'); 
+      const day = String(now.getDate()).padStart(2, '0');
+      const hour = String(now.getHours()).padStart(2, '0');
+      const minute = String(now.getMinutes()).padStart(2, '0');
+  
+      let datetime = `${year}-${month}-${day}T${hour}:${minute}`;
+      this.currentTime = datetime;
+    }
 
   fnGetSubscribeData() {
     if(this.globalVar.subscribeData) {

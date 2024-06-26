@@ -3,7 +3,7 @@ import { ModalController, NavController } from '@ionic/angular';
 import Swiper from 'swiper';
 import { Platform } from '@ionic/angular';
 import { Device } from '@awesome-cordova-plugins/device/ngx';
-import { AppVersion } from '@awesome-cordova-plugins/app-version/ngx';
+import { AppVersion } from '@awesome-cordova-plugins/app-version/ngx'; 
 import { GlobalVarService } from 'src/app/services/global-var.service';
 import { GlobalFunService } from 'src/app/services/global-fun.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -19,7 +19,7 @@ import { OnesignalService } from 'src/app/services/onesignal.service';
   styleUrls: ['./splash-screen.page.scss'],
 })
 export class SplashScreenPage implements OnInit, OnDestroy {
-
+  
   @ViewChild('swiper')
   swiperRef: ElementRef | undefined;
   swiper?: Swiper;
@@ -37,29 +37,22 @@ export class SplashScreenPage implements OnInit, OnDestroy {
     public onesignalService: OnesignalService,
     public httpService: SplashScreenService
   ) {
-
+    
     this.initializeApp();
    }
-
+  
 
   ngOnInit() {
   }
 
   ngOnDestroy() {
-    console.log('destroy >>')
-    if (this.globalVar.isSubscribe.value) {
-      const isAndroid = this.platform.is('android');
-      const needsUpdate = (isAndroid && this.globalVar.android_update != 1) || (!isAndroid && this.globalVar.ios_update != 1);
-
-      if (needsUpdate) {
-        this.fnOpenSubscribe();
-      }
-    }
-
+   /*  if (this.globalVar.isSubscribe.value) {
+      this.fnOpenSubscribe();
+    } */
     this.globalVar.getUpdatedIsSubscribe().subscribe((data) => {});
-  }
+  } 
 
-
+  
   async fnOpenSubscribe() {
     let modal = await this.modalCtrl.create({
       component: SubscribeComponent,
@@ -80,12 +73,11 @@ export class SplashScreenPage implements OnInit, OnDestroy {
   }
 
 
-
   initializeApp() {
     this.platform.ready().then(() => {
       if(this.platform.is('cordova')) {
         this.fnGetAppVersion();
-      }
+      } 
     })
   }
 
@@ -110,7 +102,7 @@ export class SplashScreenPage implements OnInit, OnDestroy {
       if(response.status == true && response.code == this.globalVar.successCode) {
         this.fnGetToken();
       }
-    }, (err: any) =>{
+    }, (err: any) =>{ 
       console.log(err)
     })
   }
@@ -131,7 +123,7 @@ export class SplashScreenPage implements OnInit, OnDestroy {
     })
   }
 
-
+    
   async fnJWTToken() {
     let token = this.globalVar.access_token;
     if (!token) {
@@ -143,15 +135,15 @@ export class SplashScreenPage implements OnInit, OnDestroy {
     if (subscribeData) {
       localStorage.setItem('subscribeData', JSON.stringify(subscribeData));
       this.globalVar.subscribeData = subscribeData;
-
+      
       if(subscribeData['name'] == '') {
         this.globalVar.isSubscribe.next(true);
       } else {
         this.globalVar.isSubscribe.next(false);
       }
-
+      
       this.globalVar.getUpdatedIsSubscribe().subscribe((data) => {
-
+        
       });
     }
   }
@@ -189,16 +181,19 @@ export class SplashScreenPage implements OnInit, OnDestroy {
 
 
           setTimeout(() => {
-            console.log('version >>', this.globalVar.appVersion);
-            console.log('app version >>', this.globalVar.get_android_version);
-            console.log('platform >>', !this.platform.is('android'));
             if (this.platform.is('android') && this.globalVar.android_update === '1') {
               this.fnHandleVersionUpdate(this.globalVar.get_android_version);
             } else if (!this.platform.is('android') && this.globalVar.ios_update === '1') {
-              console.log('ios >>', this.globalVar.get_ios_version);
               this.fnHandleVersionUpdate(this.globalVar.get_ios_version);
             } else {
+              if (this.globalVar.isSubscribe.value) {
+                this.fnOpenSubscribe();
+              } 
+              this.globalVar.getUpdatedIsSubscribe().subscribe((data) => {
+                
+              });
               this.navCtrl.navigateRoot('home');
+
             }
           }, 1000);
         } else {
@@ -217,15 +212,21 @@ export class SplashScreenPage implements OnInit, OnDestroy {
     if(this.globalVar.appVersion != undefined && this.globalVar.appVersion != get_version) {
       this.navCtrl.navigateRoot('app-update');
     } else {
+      if (this.globalVar.isSubscribe.value) {
+        this.fnOpenSubscribe();
+      } 
+      this.globalVar.getUpdatedIsSubscribe().subscribe((data) => {
+        
+      });
       this.navCtrl.navigateRoot('home');
     }
   }
 
-
+  
   swiperReady() {
     this.swiper = this.swiperRef?.nativeElement.swiper;
   }
-
+  
   swiperSlideChanged(e: any) {
     // console.log('changed: ', e);
   }

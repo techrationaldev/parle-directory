@@ -37,7 +37,7 @@
                 <ion-icon name="calendar-outline" id="appointment_date" slot="end"></ion-icon>
                 <ion-modal trigger="appointment_date" class="datetime-modal">
                     <ng-template>
-                        <ion-datetime presentation="date" [(ngModel)]="appointmentdate" [min]="currentDate" [showDefaultButtons]="true" [ngModelOptions]="{standalone: true}"></ion-datetime>
+                        <ion-datetime presentation="date" [(ngModel)]="appointmentdate"  [min]="currentDate" [showDefaultButtons]="true" [ngModelOptions]="{standalone: true}"></ion-datetime>
                     </ng-template>
                 </ion-modal>
             </ion-item>
@@ -49,7 +49,7 @@
                 <ion-icon name="calendar-outline" id="appointment_time" slot="end"></ion-icon>
                 <ion-modal trigger="appointment_time" class="time-modal">
                     <ng-template>
-                        <ion-datetime presentation="time" [(ngModel)]="appointmenttime" [min]="currentDate" [showDefaultButtons]="true" [ngModelOptions]="{standalone: true}"></ion-datetime>
+                        <ion-datetime presentation="time" [(ngModel)]="appointmenttime" [min]="currentTime" [showDefaultButtons]="true" [ngModelOptions]="{standalone: true}"></ion-datetime>
                     </ng-template>
                 </ion-modal>
             </ion-item>

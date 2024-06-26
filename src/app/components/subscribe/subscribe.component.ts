@@ -9,7 +9,7 @@ import { ToastService } from 'src/app/services/toast.service';
   templateUrl: './subscribe.component.html',
   styleUrls: ['./subscribe.component.scss'],
 })
-export class SubscribeComponent  implements OnInit {
+export class SubscribeComponent implements OnInit {
 
   public name: any;
   public email: any;

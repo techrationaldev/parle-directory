@@ -27,11 +27,10 @@
   <!-- ======================== list =========================== -->
   <div class="ion-padding-top" *ngIf="isSearch"></div>
   <div *ngIf="businessList.length > 0">
-
     <ng-container>
-     <div *ngFor="let item of businessList; index as i">
+     <div  *ngFor="let item of businessList; index as i">
       <div class="bis-container">
-        <ion-card >
+        <ion-card [class.active-btn]="item.appointment_btn == 1">
           <div>
             <div class="subcat-container">
               <div class="list-container" *ngIf="globalVar.show_biz_thumbnail == 1 || (globalVar.show_biz_thumbnail == 0 && item.biz_image)">
@@ -47,8 +46,7 @@
                   <ion-icon name="logo-youtube"></ion-icon>
                 </div>
               </div>
-    
-    
+
               <div class="item-detail">
                 <p class="item-name" (click)="fnOpenPremiumWebsite(item)">{{item?.biz_title}}</p>
                 <ion-label class="item-subtxt">{{item?.biz_subtitle}}</ion-label>

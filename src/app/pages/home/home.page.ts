@@ -217,6 +217,7 @@ export class HomePage implements OnInit {
     this.http.getHomeBanner(reqFormData).subscribe((response: any) => {
       if ( response.status == true && response.code == this.globalVar.successCode) {
         this.footerSlider2List = response.data;
+        
       } else {
         if (response.code == this.globalVar.tokenCode) {
           // ...
@@ -234,6 +235,13 @@ export class HomePage implements OnInit {
     this.http.getHomeBanner(reqFormData).subscribe((response: any) => {
       if ( response.status == true && response.code == this.globalVar.successCode) {
         this.footerSlider3List = response.data;
+        this.footerSlider3List.map((ele: any) => {
+          if(ele.banner_link == '') {
+            ele['is_bannerlink'] = false;
+          } else {
+            ele['is_bannerlink'] = true;
+          }
+        })
       } else {
         if (response.code == this.globalVar.tokenCode) {
           // ...
@@ -257,7 +265,7 @@ export class HomePage implements OnInit {
   }
 
   fnOpenFooterSlide(data: any) {
-    if(data.banner_link != '' || data.banner_link != '#') {
+    if(data.banner_link !== '' && data.banner_link !== '#') {
       const options = 'location=yes,hidden=yes';
       cordova.InAppBrowser.open(data.banner_link, '_system', options);
     }
@@ -280,7 +288,7 @@ export class HomePage implements OnInit {
   }
 
   fnOpenAdBanner(footer_banner: any) {
-    if(footer_banner.banner_link != '' || footer_banner.banner_link != '#') {
+    if(footer_banner.banner_link !== '' && footer_banner.banner_link !== '#') {
       const options = 'location=yes,hidden=yes';
       cordova.InAppBrowser.open(footer_banner.banner_link, '_system', options);
     }

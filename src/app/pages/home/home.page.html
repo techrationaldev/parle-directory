@@ -66,7 +66,7 @@
                 </ion-label>
               </ion-item>
             </div>
-
+  
             <div *ngIf="isLoading == true">
               <ion-item lines="none" class="subcat-loading">
                 <ion-skeleton-text [animated]="true"></ion-skeleton-text>
@@ -133,7 +133,7 @@
     </swiper-container>
   </div>
 
-
+  
   <div class="home-banner ion-padding-bottom" *ngIf="footerSlider3List.length > 0">
     <p class="home-section-info">Banner Ads</p>
       <swiper-container #swiper pagination="true" loop="true" [config]="config">
