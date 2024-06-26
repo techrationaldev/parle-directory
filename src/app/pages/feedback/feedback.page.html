@@ -11,6 +11,18 @@
   <div>
     <ion-card>
       <ion-card-header>
+        <div *ngIf="globalVar.subscribeData">
+            <ion-radio-group mode="md" [(ngModel)]="feedback_type" value="general">
+              <ion-row>
+                <ion-col>
+                  <ion-radio value="general" labelPlacement="end">General feedback</ion-radio>
+              </ion-col>
+              <ion-col>
+                <ion-radio value="delete_account" labelPlacement="end">Delete my account</ion-radio>
+              </ion-col>
+              </ion-row>
+            </ion-radio-group>
+        </div>
        <div class="subtitle">
         <p class="subtitle-feedback">Share your feedback to help us improve the app</p> 
        </div>
@@ -18,26 +30,39 @@
       <ion-card-content>
         <ion-label position="stacked" class="required">Name</ion-label>
         <ion-item fill="outline" mode="md" lines="none" class="feedback-field">
-          <ion-input type="text" [(ngModel)]="name"></ion-input>
+          <!-- [disabled]="feedback_type == 'delete_account' ? true : false" -->
+          <ion-input type="text" [(ngModel)]="name" ></ion-input>
         </ion-item>
 
         <ion-label position="stacked" class="required">Phone number</ion-label>
         <ion-item fill="outline" mode="md" lines="none" class="feedback-field">
-          <ion-input type="tel" [(ngModel)]="phone" maxlength="10"></ion-input>
+          <!-- [disabled]="feedback_type == 'delete_account' ? true : false" -->
+          <ion-input type="tel" [(ngModel)]="phone" maxlength="10" ></ion-input>
         </ion-item>
 
-        <ion-label position="stacked">Email address</ion-label>
+        <ion-label position="stacked" class="required">Email address</ion-label>
         <ion-item fill="outline" mode="md" lines="none" class="feedback-field">
-          <ion-input type="text" [(ngModel)]="email"></ion-input>
+          <!-- [disabled]="feedback_type == 'delete_account' ? true : false" -->
+          <ion-input type="text" [(ngModel)]="email" ></ion-input>
         </ion-item>
 
-        <ion-label position="stacked" class="required">Feedback</ion-label>
-        <ion-item fill="outline" mode="md" lines="none" class="feedback-field">
-          <ion-textarea  [(ngModel)]="feedback"></ion-textarea>
-        </ion-item>
+        <div  *ngIf="feedback_type == 'general'">
+          <ion-label position="stacked" class="required">Feedback</ion-label>
+          <ion-item fill="outline" mode="md" lines="none" class="feedback-field">
+            <ion-textarea  [(ngModel)]="feedback"></ion-textarea>
+          </ion-item>
+        </div>
+
+        <div *ngIf="feedback_type == 'delete_account'">
+          <ion-label position="stacked" class="required">Reason</ion-label>
+          <ion-item fill="outline" mode="md" lines="none" class="feedback-field">
+            <ion-textarea  [(ngModel)]="reason"></ion-textarea>
+          </ion-item>
+        </div>
 
         <div class="footer-submit">
-          <ion-button expand="block" (click)="fnSendFeedack()" [disabled]="!name || !phone || !feedback">Submit</ion-button>
+          <ion-button expand="block" *ngIf="feedback_type == 'general'" (click)="fnSendFeedack()" [disabled]="!name || !phone || !email || !feedback">Submit</ion-button>
+          <ion-button expand="block" *ngIf="feedback_type == 'delete_account'" (click)="fnSendFeedack()" [disabled]="!name || !phone || !email || !reason">Submit</ion-button>
         </div>
       </ion-card-content>
     </ion-card>

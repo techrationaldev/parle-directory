@@ -15,7 +15,9 @@ export class FeedbackPage implements OnInit {
   public email: any = '';
   public phone: any = '';
   public feedback: any;
+  public reason: any;
   public title: any = '';
+  public feedback_type: any = 'general';
 
 
   constructor(
@@ -27,7 +29,6 @@ export class FeedbackPage implements OnInit {
 
   ngOnInit() {
     this.fnGetSubscribeData();
-
     /* this.globalVar.getUpdatedIsSubscribe().subscribe((data) => {
       if(data == true) {
         this.fnGetSubscribeData();
@@ -46,19 +47,30 @@ export class FeedbackPage implements OnInit {
 
   fnSendFeedack() {
     let formdata = new FormData();
-    formdata.append("name", this.name);
-    formdata.append("email", this.email);
-    formdata.append("mobile", this.phone);
-    formdata.append("feedback", this.feedback);
+    if(this.feedback_type == 'general') {
+      formdata.append("name", this.name);
+      formdata.append("email", this.email);
+      formdata.append("mobile", this.phone);
+      formdata.append("type", this.feedback_type);
+      formdata.append("feedback", this.feedback);
+    } else {
+      formdata.append("name", this.name);
+      formdata.append("email", this.email);
+      formdata.append("mobile", this.phone);
+      formdata.append("type", this.feedback_type);
+      formdata.append("feedback", this.reason);
+    }
     this.http.sendFeedback(formdata).subscribe((response: any) => {
       if ( response.status == true && response.code == this.globalVar.successCode) {
         this.name = '';
         this.email = '';
         this.phone = '';
         this.feedback = '';
+        this.reason = '';
 
         this.navCtrl.pop();
         this.toast.ToastShow(response.message);
+        
       } else {
         if (response.code == this.globalVar.tokenCode) {
           // ...

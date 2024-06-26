@@ -10,6 +10,8 @@ import { GlobalVarService } from 'src/app/services/global-var.service';
 export class NotificationPage implements OnInit {
 
   public notificationList: Array<any> = [];
+  public title: any = '';
+  public isLoading: boolean = false;
 
   constructor(
     public globalVar: GlobalVarService,
@@ -20,8 +22,22 @@ export class NotificationPage implements OnInit {
     this.fnGetNotification();
   }
 
+   
+  doRefresh(refresher: any) {
+    if (refresher != '') {
+      setTimeout(() => {
+          this.notificationList = [];
+          refresher.target.complete();
+          this.fnGetNotification();  
+       
+      }, 800);
+    }
+  }
+
   fnGetNotification() {
+    this.isLoading = true;
     this.http.getNotification().subscribe((response: any) => {
+      this.isLoading = false;
       if ( response.status == true && response.code == this.globalVar.successCode) {
         this.notificationList = response.data;
 
@@ -35,6 +51,7 @@ export class NotificationPage implements OnInit {
         }
       }
     }, (err: any) => {
+      this.isLoading = false;
     })
   }
 

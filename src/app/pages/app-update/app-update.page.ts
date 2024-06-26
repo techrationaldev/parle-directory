@@ -30,7 +30,7 @@ export class AppUpdatePage implements OnInit {
 
   fnOpenStoreApp(link: any) {
     const options = 'location=yes,hidden=yes';
-    cordova.InAppBrowser.open(link, '_blank', options);
+    cordova.InAppBrowser.open(link, '_system', options);
   }
 
 }

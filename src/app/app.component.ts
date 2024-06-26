@@ -4,7 +4,6 @@ import { GlobalVarService } from './services/global-var.service';
 import { NavController, Platform } from '@ionic/angular';
  
 import { GlobalFunService } from './services/global-fun.service';
-// import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
 import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { SplashScreenService } from './pages/splash-screen/splash-screen.service';
 import { OnesignalService } from './services/onesignal.service';
@@ -71,14 +70,11 @@ export class AppComponent {
           this.globalVar.subcategoryImgUrl = response.data.subcategory_image_dir_public;
           this.globalVar.businessImgUrl = response.data.business_image_dir_public;
           this.globalVar.notificationImgUrl = response.data.notification_image_dir_public;
-          // this.globalVar.appId = response.data.onesignal_appid;
+          this.globalVar.download_app_link = response.data.download_app_link;
+          this.globalVar.show_biz_thumbnail = response.data.show_biz_thumbnail;
           if(this.globalVar.settingData) {
             localStorage.setItem('settingData', JSON.stringify(this.globalVar.settingData));
           }
-
-          // if(this.platform.is('cordova') && this.globalVar.appId) {
-         
-          
 
           setTimeout(() => {
             this.navCtrl.navigateRoot('home');

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild,  } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
-import { SubscribeComponent } from 'src/app/components/subscribe/subscribe.component';
 import { GlobalVarService } from 'src/app/services/global-var.service';
 import Swiper from 'swiper';
 import { register } from 'swiper/element/bundle';
@@ -37,7 +36,9 @@ export class HomePage implements OnInit {
   public bannertypeList: Array<any> = [];
   public sliderList: Array<any> = [];
   public homeFooterList: Array<any> = [];
-  public footerSliderList: Array<any> = [];
+  public footerSlider1List: Array<any> = [];
+  public footerSlider2List: Array<any> = [];
+  public footerSlider3List: Array<any> = [];
   public isLoading: boolean = false;
   public search_text: any = '';
   public title: string = '';
@@ -83,18 +84,15 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.fnGetHomeSlider();
     this.fnGetHomeFooter();
-    this.fnGetFooterSlider();
+    this.fnGetFooterSlider1();
+    this.fnGetFooterSlider2();
+    this.fnGetFooterSlider3();
     this.fnGetCategory();
   }
 
   
   async ionViewWillEnter() {
     this.search_text = '';
-    /* if(this.globalVar.isSubscribe.value == true) {
-      this.fnOpenSubscribe();
-    }
-
-    this.globalVar.getUpdatedIsSubscribe().subscribe((data) => {}); */
   }
 
 
@@ -177,13 +175,13 @@ export class HomePage implements OnInit {
     }
   }
 
-  fnGetFooterSlider() {
+  fnGetFooterSlider1() {
     let reqFormData = new FormData();
-    reqFormData.append("banner_type", "Footer Slider");
+    reqFormData.append("banner_type", "Footer Slider 1");
     reqFormData.append("reference_id", "0");
     this.http.getHomeBanner(reqFormData).subscribe((response: any) => {
       if ( response.status == true && response.code == this.globalVar.successCode) {
-        this.footerSliderList = response.data;
+        this.footerSlider1List = response.data;
       } else {
         if (response.code == this.globalVar.tokenCode) {
           // ...
@@ -201,6 +199,41 @@ export class HomePage implements OnInit {
     this.http.getHomeBanner(reqFormData).subscribe((response: any) => {
       if ( response.status == true && response.code == this.globalVar.successCode) {
         this.homeFooterList = response.data;
+      } else {
+        if (response.code == this.globalVar.tokenCode) {
+          // ...
+        }
+      }
+    }, (err) => {
+      console.log('err', err)
+    })
+  }
+
+  
+  fnGetFooterSlider2() {
+    let reqFormData = new FormData();
+    reqFormData.append("banner_type", "Footer Slider 2");
+    reqFormData.append("reference_id", "0");
+    this.http.getHomeBanner(reqFormData).subscribe((response: any) => {
+      if ( response.status == true && response.code == this.globalVar.successCode) {
+        this.footerSlider2List = response.data;
+      } else {
+        if (response.code == this.globalVar.tokenCode) {
+          // ...
+        }
+      }
+    }, (err) => {
+      console.log('err', err)
+    })
+  }
+  
+  fnGetFooterSlider3() {
+    let reqFormData = new FormData();
+    reqFormData.append("banner_type", "Footer Slider 3");
+    reqFormData.append("reference_id", "0");
+    this.http.getHomeBanner(reqFormData).subscribe((response: any) => {
+      if ( response.status == true && response.code == this.globalVar.successCode) {
+        this.footerSlider3List = response.data;
       } else {
         if (response.code == this.globalVar.tokenCode) {
           // ...

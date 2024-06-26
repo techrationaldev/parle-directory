@@ -20,8 +20,6 @@ export class OnesignalService {
 
   async OneSignalNotification() {
     await this.platform.ready().then(async () => {
-      // console.log('appId', this.globalVar.appId);
-        // OneSignal.setAppId(this.globalVar.appId);
         OneSignal.setAppId('be441c98-0d47-4246-a3c3-648e60129592');
         this.GetFirstTimeOneSignalId();        
     });
@@ -57,7 +55,7 @@ export class OnesignalService {
   async fnOneSignalAfterKill() {
     await this.platform.ready().then(async () => {
       if (this.platform.is('cordova')) {
-        OneSignal.setAppId(this.globalVar.appId);
+        OneSignal.setAppId('be441c98-0d47-4246-a3c3-648e60129592');
 
         await OneSignal.addSubscriptionObserver(async (res) => {
           // console.log('second timedevice id>>', res);

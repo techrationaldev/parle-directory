@@ -1,5 +1,5 @@
 
-.feedback-field {
+.appointment-field {
     --border-color: #9d9d9d;
     margin-bottom: 12px;
 }
@@ -20,4 +20,8 @@ ion-card {
 
 .subtitle {
     text-align: center;
+}
+
+.appointment-time, .appointment-date {
+    --padding-start: 8px;
 }

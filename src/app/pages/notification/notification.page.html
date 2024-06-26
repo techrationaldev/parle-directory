@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="globalVar.connection.value == true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button text=""></ion-back-button>
@@ -7,8 +7,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
+<ion-content *ngIf="globalVar.connection.value == true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="caret-down" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-list *ngIf="notificationList.length > 0">
     <ion-card *ngFor="let notification of notificationList; let i=index;">
       <ion-card-header class="ion-no-padding" *ngIf="notification.notification_image">
         <ion-img [src]="globalVar.notificationImgUrl + notification.notification_image"></ion-img>
@@ -21,4 +26,12 @@
       </ion-card-content>
     </ion-card>
   </ion-list>
+
+  <div class="no-record" *ngIf="notificationList.length <= 0 && isLoading == false">
+    <ion-img src="assets/images/no_record.svg"></ion-img>
+  </div>
 </ion-content>
+
+<!-- ========================== Network connection lost ========================== -->
+<app-network-connection *ngIf="globalVar.connection.value == false" [title_text]="title"></app-network-connection>
+<!-- =========================================================================== -->

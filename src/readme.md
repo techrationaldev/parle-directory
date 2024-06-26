@@ -6,9 +6,6 @@
     ionic cordova plugin add call-number
     npm install @awesome-cordova-plugins/call-number
 
-    ionic cordova plugin add call-number
-    npm install @ionic-native/call-number
-
 2. Email :
 
     ionic cordova plugin add cordova-plugin-email-composer
@@ -36,8 +33,7 @@
   
 7. Status bar:
 
-    ionic cordova plugin add cordova-plugin-statusbar 
-    npm install @awesome-cordova-plugins/status-bar 
+    ionic cordova plugin add cordova-plugin-statusbar && npm install @awesome-cordova-plugins/status-bar 
 
 8. Social Share:
 
@@ -66,6 +62,18 @@
 
     ionic cordova plugin add com-sarriaroman-photoviewer
     npm install --save @ionic-native/photo-viewer
+
+    <!-- not installed -->
+
+    ionic cordova plugin add com-sarriaroman-photoviewer
+    npm install @awesome-cordova-plugins/photo-viewer
+
+9. WebView :
+
+    ionic cordova plugin add cordova-plugin-ionic-webview
+    npm install @awesome-cordova-plugins/ionic-webview
+
+
 
 =======================================================
 # Packages :

@@ -21,8 +21,10 @@ export class GlobalVarService {
   public notificationImgUrl: any = '';
   public businessImgUrl: any = '';
   public appVersion: any = '';
+  public show_biz_thumbnail: any;
   public android_app_link: any = '';
   public ios_app_link: any = '';
+  public download_app_link: any = '';
   public subscribeData: any;
   public splashImg: any;
   public android_update : any = 0;

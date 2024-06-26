@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, ModalController, NavController } from '@ionic/angular';
-import { SupportComponent } from 'src/app/components/support/support.component';
 import { GlobalVarService } from 'src/app/services/global-var.service';
-import { CallNumber } from '@ionic-native/call-number/ngx';
+// import { CallNumber } from '@ionic-native/call-number/ngx';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 
 declare let cordova: any;
 
@@ -97,19 +97,6 @@ export class SettingsPage implements OnInit {
       this.infoData = this.about_us;
     }
   }
-
-  /* fnUpdateSetting(header: any) {
-    this.active.header = header;
-    if(header == 'About') {
-      this.infoData = this.about_us;
-    } else if(header == 'Support') {
-      this.infoData = this.support_no;
-    } else {
-      this.infoData = this.privacy_policy;
-    }
-  } */
-
-
   
   fnRedirectWebsite(website: any) {
     let website_link;

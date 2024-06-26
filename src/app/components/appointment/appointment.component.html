@@ -1,0 +1,77 @@
+<ion-header *ngIf="globalVar.connection.value == true">
+  <ion-toolbar>
+    <ion-title>Appointment</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="modalCtrl.dismiss()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="globalVar.connection.value == true">
+  <div>
+    <form [formGroup]="appointmentForm" (ngSubmit)="fnSendAppointment()">
+      <ion-card>
+        <ion-card-content>
+          <ion-label position="stacked" class="required">Name</ion-label>
+          <ion-item fill="outline" mode="md" lines="none"  class="appointment-field">
+            <ion-input type="text" [(ngModel)]="user_name" formControlName="name" id="name"></ion-input>
+          </ion-item>
+  
+          <ion-label position="stacked" class="required">Phone number</ion-label>
+          <ion-item fill="outline" mode="md" lines="none" class="appointment-field">
+            <ion-input type="tel" [(ngModel)]="user_mobile"  formControlName="mobile" id="mobile" maxlength="10" ></ion-input>
+          </ion-item>
+  
+          <ion-label position="stacked" class="required">Email address</ion-label>
+          <ion-item fill="outline" mode="md" lines="none" class="appointment-field">
+            <ion-input type="text" [(ngModel)]="user_email" formControlName="email" id="email"></ion-input>
+          </ion-item>
+
+          <ion-row>
+            <ion-col>
+            <ion-label position="stacked" class="required">Preferred appointment date </ion-label>
+              <ion-item fill="outline" mode="md" lines="none" class="appointment-field appointment-date">
+                <ion-label >{{ appointmentdate | date: 'dd/MM/yyyy' }}</ion-label>
+                <ion-icon name="calendar-outline" id="appointment_date" slot="end"></ion-icon>
+                <ion-modal trigger="appointment_date" class="datetime-modal">
+                    <ng-template>
+                        <ion-datetime presentation="date" [(ngModel)]="appointmentdate" [min]="currentDate" [showDefaultButtons]="true" [ngModelOptions]="{standalone: true}"></ion-datetime>
+                    </ng-template>
+                </ion-modal>
+            </ion-item>
+            </ion-col>
+            <ion-col>
+            <ion-label position="stacked" class="required">Preferred appointment time </ion-label>
+              <ion-item fill="outline" mode="md" lines="none" class="appointment-field appointment-time">
+                <ion-label>{{ appointmenttime | date: 'hh:mm a' }}</ion-label>
+                <ion-icon name="calendar-outline" id="appointment_time" slot="end"></ion-icon>
+                <ion-modal trigger="appointment_time" class="time-modal">
+                    <ng-template>
+                        <ion-datetime presentation="time" [(ngModel)]="appointmenttime" [min]="currentDate" [showDefaultButtons]="true" [ngModelOptions]="{standalone: true}"></ion-datetime>
+                    </ng-template>
+                </ion-modal>
+            </ion-item>
+            </ion-col>
+          </ion-row>
+  
+          <ion-label position="stacked" class="required">Comment</ion-label>
+          <ion-item fill="outline" mode="md" lines="none" class="appointment-field">
+            <ion-textarea formControlName="comments" id="comments"></ion-textarea>
+          </ion-item>
+  
+  
+          <div class="footer-submit">
+            <ion-button expand="block" type="submit"
+            [disabled]="!appointmentForm.valid">Submit</ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </form>
+  </div>
+</ion-content>
+
+<!-- ========================== Network connection lost ========================== -->
+<!-- <app-network-connection *ngIf="globalVar.connection.value == false" [title_text]="title"></app-network-connection> -->
+<!-- =========================================================================== -->

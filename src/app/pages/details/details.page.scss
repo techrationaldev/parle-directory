@@ -59,6 +59,7 @@ ion-content, ion-list {
     }
 }
 .social-share-icon {
+    text-align: end;
     ion-icon {
         background: #ebebeb;
         font-size: 16px;
@@ -67,12 +68,40 @@ ion-content, ion-list {
     }
 }
 
+.bis-container {
+    position: relative;
+}
+
+.ap-booking {
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    ion-button {
+        min-height: 32px !important;
+        height: 32px;
+        font-size: 14px;
+    }
+}
+
+.card-booking {
+    margin-bottom: 30px;
+    padding-bottom: 24px;
+}
+
+.card-nobooking {
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+
+}
+
 ion-card {
     border-radius: 7px;
     box-shadow: none;
     margin: 16px;
     padding: 14px;
-    // border: 1px solid var(--ion-color-primary);
+    margin-bottom: 30px;
+    padding-bottom: 24px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     border: 1px solid #bbbbbb;
 

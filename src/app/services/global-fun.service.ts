@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { jwtDecode } from 'jwt-decode';
 import { GlobalVarService } from './global-var.service';
 import { ActionSheetController, AlertController, ModalController, NavController, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -60,7 +59,7 @@ export class GlobalFunService {
 
       if (this.router.url === '/home' || this.router.url === '/app-update') {
         this.fntoexit();
-      } else if(this.router.url === '/details' || this.router.url === '/settings' || this.router.url === '/videos' || 
+      } else if(this.router.url === '/details' || this.router.url === '/settings' || this.router.url === '/videos' || this.router.url === '/about-us' || this.router.url === '/our-team' ||
       this.router.url === '/feedback' || this.router.url === '/privacy-policy' || this.router.url === '/disclaimer' || this.router.url === '/our-teams' || this.router.url === '/notification') {
         this.navCtrl.pop()
       } else {
@@ -72,11 +71,11 @@ export class GlobalFunService {
 
   async fntoexit() {
     const alert = await this.alertCtrl.create({
-      header: 'You want to Exit ?',
+      header: 'Do you want to exit?',
       backdropDismiss: false,
       buttons: [
         {
-          text: 'Cancel',
+          text: 'No',
           handler: () => {},
         },
         {

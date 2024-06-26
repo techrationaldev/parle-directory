@@ -3,14 +3,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DetailsService } from './details.service';
 import { GlobalVarService } from 'src/app/services/global-var.service';
 
-import { CallNumber } from '@ionic-native/call-number/ngx';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
+
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { WatchVideoComponent } from 'src/app/components/watch-video/watch-video.component';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 
-import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+// import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+
+import { PhotoViewer } from '@awesome-cordova-plugins/photo-viewer/ngx';
+import { AppointmentComponent } from 'src/app/components/appointment/appointment.component';
+
 
 
 declare let cordova: any;
@@ -35,6 +40,7 @@ export class DetailsPage implements OnInit {
 
 
   constructor(
+    public platform: Platform,
     public callnumber: CallNumber,
     private socialSharing: SocialSharing,
     public photoviewer: PhotoViewer,
@@ -100,6 +106,17 @@ export class DetailsPage implements OnInit {
     }
   }
 
+  async fnAppointment(biz: any) {
+    let modal = await this.modalCtrl.create({
+      component: AppointmentComponent,
+      id: 'ap-modal',
+      cssClass: 'ap-modal',
+      componentProps: {email : biz.biz_email}
+    });
+
+    await modal.present();
+  }
+
   async fnDisplayVideo(data: any) {
     let modal = await this.modalCtrl.create({
       component: WatchVideoComponent,
@@ -154,7 +171,22 @@ export class DetailsPage implements OnInit {
     let maplink = item.biz_lat != '' ? `View On Map (${item?.biz_lat})` : '';
     let email = item.biz_email != '' ? `📧 Email: ${item?.biz_email}` : '';
     let website = item.biz_website != '' ? `🌐 Website: ${item?.biz_website}` : '';
+    let download_link = this.globalVar.download_app_link != '' ? `Download App: ${this.globalVar.download_app_link}` : '';
     const message = 
+    `🌟 Discover ${item.biz_title} with Parle Directory App! 🌟
+    
+    ${item.biz_title}
+    📍 ${item.biz_address}
+    ${maplink}
+    
+    📞 Phone: ${item?.biz_primary_phone}
+    ${email}
+    ${website}
+    
+    
+    Discover the Parle Directory App! The ultimate resource for businesses and professionals in and around Vile Parle. 
+    ${download_link}`;
+    /* const message = 
     `🌟 Discover ${item.biz_title} with Parle Directory App! 🌟
     
     Hey there! 👋 Check out this amazing business listing:
@@ -168,7 +200,7 @@ export class DetailsPage implements OnInit {
     
     
     📲 Discover the Parle Directory App! The ultimate resource for businesses and professionals in and around Vile Parle. 
-    Download App: www.google.com`;
+    ${download_link}`; */
     var options = {
       message: message, 
       subject: item.biz_title, 
@@ -176,10 +208,7 @@ export class DetailsPage implements OnInit {
     };
     
     this.socialSharing.shareWithOptions(options).then((result) => {
-      // console.log("Share completed? " + result.completed); 
-      // console.log("Shared to app: " + result.app);
     }, (err) => {
-      // console.log("Sharing failed with message: " + err);
     });
   }
 
@@ -245,11 +274,18 @@ export class DetailsPage implements OnInit {
   }
 
   fnCallNumber(phn: any) {
-    this.callnumber.callNumber(phn, true).then((res)=> {
-      console.log('res', res);
-    }).catch((err) => {
-      console.log('err', err)
-    })
+    if(this.platform.is('android')) {
+      const telUrl = 'tel:' + phn;
+      console.log('phn', telUrl);
+      const options = 'location=yes,hidden=yes';
+      cordova.InAppBrowser.open(telUrl, '_system', options);
+    } else {
+      this.callnumber.callNumber(phn, true).then((res)=> {
+        console.log('res', res);
+      }).catch((err) => {
+        console.log('err', err)
+      })
+    }
   }
 
   fnOpenEmail(mail: any) {

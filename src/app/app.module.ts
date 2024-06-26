@@ -9,7 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
-import { CallNumber } from '@ionic-native/call-number/ngx';
+// import { CallNumber } from '@ionic-native/call-number/ngx';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 import { Device } from '@awesome-cordova-plugins/device/ngx'; 
 import { AppVersion } from '@awesome-cordova-plugins/app-version/ngx'; 
 // import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
@@ -17,8 +18,10 @@ import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
 import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { OneSignalPlugin } from 'onesignal-cordova-plugin';
 
-import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+// import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { PhotoViewer } from '@awesome-cordova-plugins/photo-viewer/ngx';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
+import { WebView } from '@awesome-cordova-plugins/ionic-webview/ngx';
 
 
 @NgModule({
@@ -35,7 +38,8 @@ import { Network } from '@awesome-cordova-plugins/network/ngx';
     StatusBar,
     OneSignalPlugin,
     SocialSharing,
-    CallNumber ,
+    CallNumber,
+    WebView,
     Device,
     AppVersion,
     PhotoViewer,

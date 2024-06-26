@@ -28,62 +28,69 @@
   <div class="ion-padding-top" *ngIf="isSearch"></div>
   <div *ngIf="businessList.length > 0">
 
-    <ng-container >
+    <ng-container>
      <div *ngFor="let item of businessList; index as i">
-      <ion-card>
-        <div class="subcat-container">
-          <div class="list-container">
-            <div class="img-data" (click)="fnImagePreview(item)">
-              <ion-img *ngIf="item.biz_image && item.is_premium == '1'" class="bimg" [src]="globalVar.businessImgUrl + item.biz_image"></ion-img>
-              <ion-img *ngIf="!item.biz_image || item.is_premium != '1'" class="bimg" src="assets/images/no_img.png"></ion-img>
-              <div class="premium" *ngIf="item.is_premium == '1'">
-                <ion-img src="assets/images/verified.svg"></ion-img>
+      <div class="bis-container">
+        <ion-card >
+          <div>
+            <div class="subcat-container">
+              <div class="list-container" *ngIf="globalVar.show_biz_thumbnail == 1 || (globalVar.show_biz_thumbnail == 0 && item.biz_image)">
+                <div class="img-data" (click)="fnImagePreview(item)">
+                  <ion-img *ngIf="item.biz_image" class="bimg" [src]="globalVar.businessImgUrl + item.biz_image"></ion-img>
+                  <ion-img *ngIf="!item.biz_image" class="bimg" src="assets/images/no_img.png"></ion-img>
+              
+                  <div class="premium" *ngIf="item.is_premium == '1'">
+                    <ion-img src="assets/images/verified.svg"></ion-img>
+                  </div>
+                </div>
+                <div class="video" (click)="fnDisplayVideo(item)" *ngIf="item.biz_long">
+                  <ion-icon name="logo-youtube"></ion-icon>
+                </div>
+              </div>
+    
+    
+              <div class="item-detail">
+                <p class="item-name" (click)="fnOpenPremiumWebsite(item)">{{item?.biz_title}}</p>
+                <ion-label class="item-subtxt">{{item?.biz_subtitle}}</ion-label>
+                <p class="item-address">{{item?.biz_address}}</p>
+                <ion-note class="map-lbl" (click)="fnViewOnMap(item)"><u>View on map</u> <ion-icon name="chevron-forward-outline"></ion-icon></ion-note>
+              </div>
+    
+              <div class="social-share-icon" (click)="fnSocialShare(item)">
+                <ion-icon name="share-social-outline"></ion-icon>
               </div>
             </div>
-            <div class="video" (click)="fnDisplayVideo(item)" *ngIf="item.biz_long">
-              <ion-icon name="logo-youtube"></ion-icon>
+    
+            <div>
+              <ion-item detail="true" [lines]="item.biz_email === '' && item.biz_website === '' ? 'none' : 'full'" *ngIf="item.biz_primary_phone || item.biz_other_phone" class="item-lbl" (click)="fnCallNumber(item.biz_primary_phone)">
+                <ion-label>
+                  <ion-icon src="assets/images/phone_in_talk.svg"></ion-icon>&nbsp;
+                  <ion-text class="subtxt">
+                    <span *ngIf="item.biz_primary_phone">{{item?.biz_primary_phone}}</span> <span *ngIf="item.biz_other_phone">, {{item?.biz_other_phone}}</span>
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+    
+              <ion-item detail="true"  class="item-lbl" [lines]="item.biz_website === '' ? 'none' : 'full'" *ngIf="item.biz_email" (click)="fnOpenEmail(item.biz_email)">
+                <ion-label>
+                  <ion-icon src="assets/images/mark_email_unread.svg"></ion-icon><ion-text class="subtxt">&nbsp;{{item?.biz_email}}</ion-text>
+                </ion-label>
+              </ion-item>
+    
+              <ion-item lines="none"  class="item-lbl" detail="true" *ngIf="item.biz_website"  (click)="fnOpenWebsite(item.biz_website)">
+                <ion-label>
+                  <ion-icon src="assets/images/captive_portal.svg"></ion-icon><ion-text class="subtxt">&nbsp;
+                    {{item?.biz_website}}</ion-text>
+                </ion-label>
+              </ion-item>
             </div>
           </div>
-
-          <div class="item-detail">
-            <p class="item-name" (click)="fnOpenPremiumWebsite(item)">{{item?.biz_title}}</p>
-            <ion-label class="item-subtxt">{{item?.biz_subtitle}}</ion-label>
-            <p class="item-address">{{item?.biz_address}}</p>
-            <ion-note class="map-lbl" (click)="fnViewOnMap(item)"><u>View on map</u> <ion-icon name="chevron-forward-outline"></ion-icon></ion-note>
-          </div>
-
-          <div class="social-share-icon" (click)="fnSocialShare(item)">
-            <ion-icon name="share-social-outline"></ion-icon>
-          </div>
+  
+        </ion-card>
+        <div class="ap-booking" *ngIf="item.appointment_btn == 1">
+          <ion-button (click)="fnAppointment(item)">Appointment</ion-button>
         </div>
-
-        <div>
-          <ion-item detail="true" [lines]="item.biz_email === '' && item.biz_website === '' ? 'none' : 'full'" *ngIf="item.biz_primary_phone || item.biz_other_phone" class="item-lbl" (click)="fnCallNumber(item.biz_primary_phone)">
-            <ion-label>
-              <ion-icon src="assets/images/phone_in_talk.svg"></ion-icon>&nbsp;
-              <ion-text class="subtxt">
-                <span *ngIf="item.biz_primary_phone">{{item?.biz_primary_phone}}</span> <span *ngIf="item.biz_other_phone">, {{item?.biz_other_phone}}</span>
-              </ion-text>
-            </ion-label>
-          </ion-item>
-
-          <ion-item detail="true"  class="item-lbl" [lines]="item.biz_website === '' ? 'none' : 'full'" *ngIf="item.biz_email" (click)="fnOpenEmail(item.biz_email)">
-            <ion-label>
-              <ion-icon src="assets/images/mark_email_unread.svg"></ion-icon><ion-text class="subtxt">&nbsp;{{item?.biz_email}}</ion-text>
-            </ion-label>
-          </ion-item>
-
-          <ion-item lines="none"  class="item-lbl" detail="true" *ngIf="item.biz_website"  (click)="fnOpenWebsite(item.biz_website)">
-            <ion-label>
-              <ion-icon src="assets/images/captive_portal.svg"></ion-icon><ion-text class="subtxt">&nbsp;
-                {{item?.biz_website}}</ion-text>
-            </ion-label>
-          </ion-item>
-          
-         
-        </div>
-      </ion-card>
-
+      </div>
 
      <div *ngIf="adBannerList.length > 0" class="ion-margin">
       <span *ngIf="(i + 1) % 2 === 0 && (i / 2) < adBannerList.length">
